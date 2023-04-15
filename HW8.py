@@ -36,7 +36,9 @@ def plot_rest_categories(db):
     restaurant categories and the values should be the number of restaurants in each category. The function should
     also create a bar chart with restaurant categories and the count of number of restaurants in each category.
     """
-    pass
+    path = os.path.dirname(os.path.abspath(__file__))
+    conn = sqlite3.connect(path + '/' + db)
+    cur = conn.cursor()
 
 def find_rest_in_building(building_num, db):
     '''
@@ -44,7 +46,7 @@ def find_rest_in_building(building_num, db):
     restaurant names. You need to find all the restaurant names which are in the specific building. The restaurants 
     should be sorted by their rating from highest to lowest.
     '''
-    pass
+
 
 #EXTRA CREDIT
 def get_highest_rating(db): #Do this through DB as well
