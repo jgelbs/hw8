@@ -40,12 +40,36 @@ def plot_rest_categories(db):
     conn = sqlite3.connect(path + '/' + db)
     cur = conn.cursor()
 
+    cur.execute("SELECT restaurants.name, restaurants.building_id, restaurants.rating, restaurants.category_id, buildings.id, buildings.building, categories.id, categories.category FROM restaurants INNER JOIN buildings ON restaurants.building_id = buildings.id INNER JOIN categories ON restaurants.category_id = categories.id")
+    rows = cur.fetchall()
+    cat_count = {}
+    for row in rows:
+        category = row[7]
+        if category not in cat_count:
+            cat_count[category] = 1
+        else:
+            cat_count[category] += 1
+
+    categories = cat_count.keys()
+    counts = cat_count.values()
+
+    plt.bar(categories, counts)
+    plt.xlabel('Restaurant Categories')
+    plt.ylabel('Number of Restaurants per Category')
+    plt.title('Restaurant Category Counts')
+    plt.xticks(rotation=90)
+    plt.show()
+    
+    conn.close()
+    return cat_count
+
 def find_rest_in_building(building_num, db):
     '''
     This function accepts the building number and the filename of the database as parameters and returns a list of 
     restaurant names. You need to find all the restaurant names which are in the specific building. The restaurants 
     should be sorted by their rating from highest to lowest.
     '''
+    pass
 
 
 #EXTRA CREDIT
